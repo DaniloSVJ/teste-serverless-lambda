@@ -84,7 +84,13 @@ export const updateCustomer: APIGatewayProxyHandler = async (event) => {
 
     return { statusCode: 200, body: JSON.stringify(customerUpdate) };
   } catch (error) {
-    return { statusCode: 500, body: JSON.stringify({ error }) };
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+        stack: error instanceof Error ? error.stack : undefined,
+      }),
+    };
   }
 };
 

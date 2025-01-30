@@ -14,7 +14,6 @@ provider:
         - "dynamodb:GetItem"
         - "dynamodb:Scan"
         - "dynamodb:UpdateItem"
-        - "dynamodb:Query"
         - "execute-api:Invoke"
       Resource:
         - "arn:aws:dynamodb:us-east-1:147997147453:table/customers"
@@ -31,6 +30,16 @@ resources:
         KeySchema:
           - AttributeName: id
             KeyType: HASH
+    # ApiGatewayAuthorizer:
+    #   Type: AWS::ApiGateway::Authorizer
+    #   Properties:
+    #     IdentitySource: method.request.header.Authorization
+    #     Name: Cognito
+    #     RestApiId:
+    #       Ref: ApiGatewayRestApi
+    #     Type: COGNITO_USER_POOLS
+    #     ProviderARNs:
+    #       - arn:aws:iam::147997147453:user/serverless-user-teste
 
 functions:
   createCustomer:
@@ -39,6 +48,7 @@ functions:
       - http:
           path: customers
           method: post
+          cors: true
 
   getCustomer:
     handler: src/handlers/getCustomer.handler
@@ -62,6 +72,7 @@ functions:
       - http:
           path: customers/{id}
           method: put
+          cors: true
 
   deleteCustomer:
     handler: src/handlers/deleteCustomer.handler
@@ -69,3 +80,4 @@ functions:
       - http:
           path: customers/{id}
           method: delete
+          cors: true

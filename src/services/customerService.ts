@@ -19,7 +19,6 @@ export class CustomerService {
     const newCustomer: Customer = {
       id,
       ...data,
-      active: true,
       createdAt: timestamp,
       updatedAt: timestamp,
     };
@@ -34,18 +33,12 @@ export class CustomerService {
   }
 
   static async getCustomer(id: string) {
-    const command = new QueryCommand({
+    const command = new GetCommand({
       TableName: TABLE_NAME,
-      KeyConditionExpression: "id = :id",
-      FilterExpression: "active = :active",
-      ExpressionAttributeValues: {
-        ":id": id,
-        ":active": true,
-      },
+      Key: { id },
     });
-
     const response = await dbClient.send(command);
-    return response.Items?.[0] as QueryCommand | null;
+    return (response.Item as Customer) ?? null;
   }
 
   static async getAllCustomers() {

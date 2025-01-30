@@ -39,3 +39,41 @@ Formato de saída: deixe em branco ou use json
 Para testar se as credenciais estão funcionando, rode:
 
 aws sts get-caller-identity
+
+BAIXAR O PROJETO NA MAQUINA E RODAR:
+
+Abra o terminal do sistema operacional. cole o codigo abaixo:
+git clone https://github.com/DaniloSVJ/teste-serverless-lambda.git
+
+Depois digite: cd teste-serverless-lambda
+
+Agora instale as dependencias com uns dos comando abaixo:
+npm install
+ou
+yarn
+
+Depois que terminar de instalar as dependencias execute o comando:
+
+serverless deploy.
+
+Isso irá criar o CRUD: GET | POST | PUT | DELETE
+
+O modal está no segunte formato para criar e atualizar:
+{
+id?: string;
+name: string;
+email: string;
+birthDate: string;
+active: boolean;
+residentialAddress: string;
+businessAddress: string;
+otherAddress: string;
+phone_number: string;
+is_whatsapp: boolean;
+createdAt: string;
+updatedAt: string;
+}
+
+COMO RODAR OS TEST: npm test
+
+ALGUMA DÚVIDA CONTATE-ME NO WHATS: 85986070928
