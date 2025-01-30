@@ -1,0 +1,41 @@
+COMO EXECUTAR O PROJETO:
+
+Antes de tudo você precia criar uma conta na aws caso não tenha e lá criar um usuario IAM
+
+Para criar a conta na aws acesse:
+https://signin.aws.amazon.com/signup?request_type=register
+
+Depois de criada a sua conta acesse. Faça o longi e acesse:
+
+https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users
+
+Apos isso, clique no botão "criar usuario". Digite o nome de usuario. E anote salve a Access Key e Secret Key (você precisará delas).
+Depois de criado adicione as seguintes permissões.
+Vá em Permissões, escolha "Anexar políticas diretamente" e selecione:
+
+    AdministratorAccess
+    AmazonAPIGatewayAdministrator
+    AmazonDynamoDBFullAccess
+    AmazonS3FullAccess
+    AmazonSSMReadOnlyAccess
+    AWSCloudFormationFullAccess
+    AWSLambda_FullAccess
+    IAMFullAccess
+
+Agora, configure a AWS CLI para que o serverless possa acessar sua conta.
+Se ainda não tiver a AWS CLI instalada, instale:
+
+npm install -g aws-cli
+Depois, rode:
+aws configure
+
+E insira:
+
+AWS Access Key ID: (a chave gerada no IAM)
+AWS Secret Access Key: (a chave secreta gerada)
+Região padrão: us-east-1 (ou outra de sua escolha)
+Formato de saída: deixe em branco ou use json
+
+Para testar se as credenciais estão funcionando, rode:
+
+aws sts get-caller-identity

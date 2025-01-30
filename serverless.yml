@@ -1,0 +1,71 @@
+service: customers-api
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  deploymentBucket: teste-lambda-aws
+  environment:
+    TABLE_NAME: customers
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:PutItem"
+        - "dynamodb:GetItem"
+        - "dynamodb:Scan"
+        - "dynamodb:UpdateItem"
+        - "dynamodb:Query"
+        - "execute-api:Invoke"
+      Resource:
+        - "arn:aws:dynamodb:us-east-1:147997147453:table/customers"
+resources:
+  Resources:
+    CustomersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: customers
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+
+functions:
+  createCustomer:
+    handler: src/handlers/createCustomer.handler
+    events:
+      - http:
+          path: customers
+          method: post
+
+  getCustomer:
+    handler: src/handlers/getCustomer.handler
+    events:
+      - http:
+          path: customers/{id}
+          method: get
+          cors: true
+
+  getAllCustomers:
+    handler: src/handlers/getAllCustomers.handler
+    events:
+      - http:
+          path: customers
+          method: get
+          cors: true
+
+  updateCustomer:
+    handler: src/handlers/updateCustomer.handler
+    events:
+      - http:
+          path: customers/{id}
+          method: put
+
+  deleteCustomer:
+    handler: src/handlers/deleteCustomer.handler
+    events:
+      - http:
+          path: customers/{id}
+          method: delete
