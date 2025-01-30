@@ -51,10 +51,11 @@ Agora instale as dependencias com uns dos comando abaixo:
 npm install
 ou
 yarn
+E depois: npm i serverless -g
 
 Depois que terminar de instalar as dependencias execute o comando:
 
-serverless deploy.
+serverless deploy
 
 Isso irá criar o CRUD: GET | POST | PUT | DELETE
 
