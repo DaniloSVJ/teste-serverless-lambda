@@ -57,6 +57,11 @@ Depois que terminar de instalar as dependencias execute o comando:
 
 serverless deploy
 
+Criei uma conta se não tiver 
+
+Depois de criar rode novamente: serverless deploy
+
+
 Isso irá criar o CRUD: GET | POST | PUT | DELETE
 
 O modal está no segunte formato para criar e atualizar:
